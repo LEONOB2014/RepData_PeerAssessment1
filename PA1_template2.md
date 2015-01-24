@@ -133,7 +133,7 @@ p + geom_histogram() + ggtitle("Mean total steps per day") + xlab("Mean steps pe
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ```
 
-![plot of chunk unnamed-chunk-4](./PA1_template_files/figure-html/unnamed-chunk-4.png) 
+![plot of chunk unnamed-chunk-4](./PA1_template2_files/figure-html/unnamed-chunk-4.png) 
 
 Genratign and calculating the summary for mean and median numbers per day
 
@@ -174,7 +174,7 @@ q <- ggplot(per_day_interval, aes(x = interval, y = mean))
 q + geom_line() + ggtitle("Daily activity pattern") + xlab("interval") + ylab("mean steps per day")
 ```
 
-![plot of chunk unnamed-chunk-7](./PA1_template_files/figure-html/unnamed-chunk-7.png) 
+![plot of chunk unnamed-chunk-7](./PA1_template2_files/figure-html/unnamed-chunk-7.png) 
 
 Genratign and calculating the summary for mean and median numbers per day
 
@@ -258,7 +258,7 @@ q <- ggplot(per_day_interval_wday, aes(x = interval, y = mean))
 q + geom_line() + facet_wrap(~is_wkday) + ggtitle("Daily activity pattern") + xlab("interval") + ylab("mean steps per day")
 ```
 
-![plot of chunk unnamed-chunk-12](./PA1_template_files/figure-html/unnamed-chunk-12.png) 
+![plot of chunk unnamed-chunk-12](./PA1_template2_files/figure-html/unnamed-chunk-12.png) 
 
 Genratign and calculating the summary for mean and median numbers per day
 
