@@ -5,6 +5,7 @@ date: "Sunday, February 14, 2016"
 output:
   html_document:
     keep_md: yes
+  pdf_document: default
 ---
 
 ## Loading and preprocessing the data
@@ -18,8 +19,8 @@ require(lubridate)
 require(ggplot2)
 require(ggthemes)
 ```
-The first step is import the base data *activity,csv* where the original file incorporate headers, and missing values are coded as NA.  
-It's additionally important to avoid the import to convert to Factors any data, and convert dates to date format.
+The first step is import the base data *activity,csv* where the original file incorporate headers and missing values are coded as NA.  
+It's additionaly important to avoid the import to convert to Factors any data, and convert dates to date format.
 
 ```{r loading date, echo = TRUE}
 Data <- read.csv("activity.csv", header = TRUE, na.strings = NA, stringsAsFactors = FALSE)
@@ -29,9 +30,9 @@ str(Data)
 ```
 
 
-## What is the mean total number of steps taken per day?
+## What is mean total number of steps taken per day?
 
-### Extracting first day and month of each Date to be able to filter and graph variable for month and day.
+### Extracting first day and month of each Date, to be able to filter and graph variable for month and day.
 ```{r, echo = TRUE}
 Data$month <- months(Data$date)
 Data$day <- yday(Data$date)
@@ -62,8 +63,11 @@ summary(per_day)
 The mean value of steps per day is `r mean`  
 
 The median value of steps per day is `r median`  
+## What is mean total number of steps taken per day?
+```{r, echo = TRUE}
+```
+## What is the average daily activity pattern?
 
-## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
 per_day_interval <- select(Data, steps, day, interval) %>%
         group_by(interval) %>% 
@@ -87,11 +91,41 @@ summary(per_day)
 The mean value of steps per day is `r mean_perinterval`  
 
 The median value of steps per day is `r median_perinterval` 
-## What is mean total number of steps taken per day?
+
+##Imputing missing values
+
 ```{r, echo = TRUE}
+per_day <- select(Data, steps, day, month) %>%
+        group_by(day, month) %>% 
+        summarize(sum = sum(steps, na.rm = FALSE), median = median(steps, na.rm = FALSE))
+```
+Generating and calculating the summary for mean and median numbers per day
+```{r}
+mean  <- mean(per_day$sum, na.rm = FALSE)
+median  <- median(per_day$sum, na.rm = FALSE)
+summary(per_day)
+```
+Completing the missing data to recalculate
+
+Reporting a histogram of the mean total number of steps taken each day
+
+```{r}
+p <- ggplot(per_day, aes(sum, fill = month))
+p + geom_histogram() + ggtitle("Mean total steps per day") + xlab("Mean steps per day")
 ```
 
-## What is the average daily activity pattern?
+Generating and calculating the summary for mean and median numbers per day
+```{r}
+mean  <- mean(per_day$sum, na.rm = TRUE)
+median  <- median(per_day$sum, na.rm = TRUE)
+summary(per_day)
+```
+
+The mean value of steps per day is `r mean`  
+
+The median value of steps per day is `r median`  
+
+## Are there differences in activity patterns between weekdays and weekends?
 
 Defining if 
 ```{r}
