@@ -1,7 +1,7 @@
 ---
 title: 'Reproducible Research: Peer Assessment 1'
 author: "Leonardo Becerra L."
-date: "Sunday, January 18, 2015"
+date: "Sunday, February 14, 2016"
 output:
   html_document:
     keep_md: yes
@@ -18,8 +18,8 @@ require(lubridate)
 require(ggplot2)
 require(ggthemes)
 ```
-The first step is import the base data *activity,csv* where the original file incorporate headers and missing values are coded as NA.  
-It's additionaly important to avoid the import to convert to Factors any data, and convert dates to date format.
+The first step is import the base data *activity,csv* where the original file incorporate headers, and missing values are coded as NA.  
+It's additionally important to avoid the import to convert to Factors any data, and convert dates to date format.
 
 ```{r loading date, echo = TRUE}
 Data <- read.csv("activity.csv", header = TRUE, na.strings = NA, stringsAsFactors = FALSE)
@@ -29,9 +29,9 @@ str(Data)
 ```
 
 
-## What is mean total number of steps taken per day?
+## What is the mean total number of steps taken per day?
 
-### Extracting first day and month of each Date, to be able to filter and graph variable for month and day.
+### Extracting first day and month of each Date to be able to filter and graph variable for month and day.
 ```{r, echo = TRUE}
 Data$month <- months(Data$date)
 Data$day <- yday(Data$date)
@@ -52,7 +52,7 @@ p <- ggplot(per_day, aes(sum, fill = month))
 p + geom_histogram() + ggtitle("Mean total steps per day") + xlab("Mean steps per day")
 ```
 
-Genratign and calculating the summary for mean and median numbers per day
+Generating and calculating the summary for mean and median numbers per day
 ```{r}
 mean  <- mean(per_day$sum, na.rm = TRUE)
 median  <- median(per_day$sum, na.rm = TRUE)
@@ -77,7 +77,7 @@ q <- ggplot(per_day_interval, aes(x = interval, y = mean))
 q + geom_line() + ggtitle("Daily activity pattern") + xlab("interval") + ylab("mean steps per day")
 ```
 
-Genratign and calculating the summary for mean and median numbers per day
+Generating and calculating the summary for mean and median numbers per day
 ```{r}
 mean_perinterval  <- mean(per_day_interval$mean, na.rm = TRUE)
 median_perinterval  <- median(per_day_interval$median, na.rm = TRUE)
@@ -116,7 +116,7 @@ q <- ggplot(per_day_interval_wday, aes(x = interval, y = mean))
 q + geom_line() + facet_wrap(~is_wkday) + ggtitle("Daily activity pattern") + xlab("interval") + ylab("mean steps per day")
 ```
 
-Genratign and calculating the summary for mean and median numbers per day
+Generating and calculating the summary for mean and median numbers per day
 ```{r}
 mean_perinterval  <- mean(per_day_interval$mean, na.rm = TRUE)
 median_perinterval  <- median(per_day_interval$median, na.rm = TRUE)
